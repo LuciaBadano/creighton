@@ -1,0 +1,70 @@
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 1.25rem;
+  width: 240px;
+  min-width: 240px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+@media (max-width: 768px) { .sidebar { display: none; } }
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.logoCircle {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px;
+  flex-shrink: 0;
+}
+.appName { font-family: 'DM Serif Display', serif; font-size: 17px; line-height: 1.2; }
+.appName em { font-style: italic; color: var(--accent); }
+.appSub { font-size: 11px; color: var(--text3); }
+
+.section {}
+.sectionLabel {
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); margin-bottom: 8px;
+}
+.stats { display: flex; flex-direction: column; gap: 5px; }
+.statRow { display: flex; align-items: center; gap: 7px; font-size: 13px; }
+.statDot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.statLabel { color: var(--text2); flex: 1; }
+.statNum { font-weight: 500; color: var(--text); }
+.empty { font-size: 13px; color: var(--text3); }
+.peakInfo {
+  margin-top: 8px; font-size: 12px; color: var(--c-cuspide);
+  display: flex; align-items: center; gap: 5px;
+}
+.peakDot { font-size: 8px; }
+
+.legend { display: flex; flex-direction: column; gap: 5px; }
+.legRow { display: flex; align-items: center; gap: 7px; }
+.legSello {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.legLabel { font-size: 12px; color: var(--text2); }
+
+.footer {
+  margin-top: auto;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.userEmail { font-size: 11px; color: var(--text3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.signOutBtn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text3); font-size: 12px;
+  padding: 4px 8px; border-radius: 6px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.signOutBtn:hover { background: var(--surface2); color: var(--text); }

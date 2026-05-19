@@ -1,0 +1,47 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #FAF8F4;
+  --surface:   #FFFFFF;
+  --surface2:  #F3F0EA;
+  --border:    rgba(0,0,0,0.09);
+  --text:      #1C1A16;
+  --text2:     #6B6860;
+  --text3:     #A8A59F;
+  --accent:    #8B6F47;
+  --accent-lt: #F0E8DC;
+  --radius:    12px;
+  --radius-sm: 8px;
+
+  --c-sangrado:    #C94B2E;
+  --bg-sangrado:   #FAEAE5;
+  --c-spotting:    #D4724D;
+  --bg-spotting:   #FDF0ED;
+  --c-seco:        #4A7C3F;
+  --bg-seco:       #EAF2E7;
+  --c-amarillo:    #A67C1A;
+  --bg-amarillo:   #FAF2DC;
+  --c-fertil:      #2C6FAC;
+  --bg-fertil:     #E5EEFA;
+  --c-cuspide:     #6B47A8;
+  --bg-cuspide:    #EDE8F7;
+}
+
+html, body, #root { height: 100%; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Utilities */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
