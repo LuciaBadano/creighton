@@ -3,7 +3,7 @@ import styles from './Sidebar.module.css'
 
 const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 
-export default function Sidebar({ currentYear, currentMonth, entries, onNavigate, user, onSignOut }) {
+export default function Sidebar({ currentYear, currentMonth, entries, onNavigate, user, onSignOut, currentView, onChangeView }) {
   const entriesArr = Object.values(entries)
 
   const stats = DAY_TYPES.map(t => ({
@@ -20,6 +20,25 @@ export default function Sidebar({ currentYear, currentMonth, entries, onNavigate
         <div>
           <div className={styles.appName}>Ciclo <em>Creighton</em></div>
           <div className={styles.appSub}>registro personal</div>
+        </div>
+      </div>
+
+      {/* NAVEGACIÓN DE VISTAS */}
+      <div className={styles.section}>
+        <div className={styles.sectionLabel}>Vista</div>
+        <div className={styles.viewNav}>
+          <button
+            className={`${styles.viewNavBtn} ${currentView === 'month' ? styles.viewNavActive : ''}`}
+            onClick={() => onChangeView('month')}
+          >
+            📅 Mensual
+          </button>
+          <button
+            className={`${styles.viewNavBtn} ${currentView === 'cycle' ? styles.viewNavActive : ''}`}
+            onClick={() => onChangeView('cycle')}
+          >
+            🔄 Por ciclo
+          </button>
         </div>
       </div>
 

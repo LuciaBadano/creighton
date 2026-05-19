@@ -1,0 +1,42 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cycleList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: var(--text3);
+  font-size: 14px;
+}
+.loadingBar {
+  width: 120px; height: 3px;
+  background: var(--accent-lt);
+  border-radius: 2px;
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 8px;
+  text-align: center;
+}
+.emptyIcon { font-size: 36px; margin-bottom: 4px; }
+.empty p { font-size: 15px; color: var(--text2); }
+.emptyHint { font-size: 13px !important; color: var(--text3) !important; max-width: 320px; }

@@ -57,6 +57,31 @@
 }
 @media (max-width: 768px) { .signOutMobile { display: block; } }
 
+/* VIEW TOGGLE */
+.viewToggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.viewBtn {
+  padding: 5px 13px;
+  font-size: 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all 0.13s;
+  white-space: nowrap;
+}
+.viewBtn:hover { background: var(--surface2); color: var(--text); }
+.viewBtnActive {
+  background: var(--accent-lt) !important;
+  color: var(--accent) !important;
+  font-weight: 500;
+}
+
 .loadingBar {
   height: 2px; background: var(--accent-lt);
   border-radius: 1px; margin-bottom: 8px;

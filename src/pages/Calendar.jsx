@@ -4,6 +4,7 @@ import { useEntries } from '../hooks/useEntries'
 import CalCell from '../components/CalCell'
 import EntryModal from '../components/EntryModal'
 import Sidebar from '../components/Sidebar'
+import CycleView from './CycleView'
 import styles from './Calendar.module.css'
 
 const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
@@ -12,9 +13,10 @@ const DAYS_ES   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
 export default function Calendar() {
   const { user, signOut } = useAuth()
   const now = new Date()
+  const [view,  setView]  = useState('month') // 'month' | 'cycle'
   const [year,  setYear]  = useState(now.getFullYear())
   const [month, setMonth] = useState(now.getMonth())
-  const [modal, setModal] = useState(null) // { date, entry }
+  const [modal, setModal] = useState(null)
   const [toast, setToast] = useState(null)
 
   const { entries, loading, saveEntry, deleteEntry } = useEntries(year, month)
@@ -27,7 +29,7 @@ export default function Calendar() {
   const nextMonth = () => { if (month === 11) { setMonth(0); setYear(y => y+1) } else setMonth(m => m+1) }
   const goToToday  = () => { setYear(now.getFullYear()); setMonth(now.getMonth()) }
 
-  const openModal = (date, entry) => setModal({ date, entry: entry || null })
+  const openModal  = (date, entry) => setModal({ date, entry: entry || null })
   const closeModal = () => setModal(null)
 
   const handleSave = async (date, payload) => {
@@ -35,18 +37,15 @@ export default function Calendar() {
     if (!result.error) showToast('Observación guardada ✓')
     return result
   }
-
   const handleDelete = async (date) => {
     await deleteEntry(date)
     showToast('Registro eliminado')
   }
-
   const showToast = (msg) => {
     setToast(msg)
     setTimeout(() => setToast(null), 2500)
   }
 
-  // Build calendar cells
   const cells = []
   for (let i = 0; i < firstDow; i++) cells.push(null)
   for (let d = 1; d <= daysInMonth; d++) {
@@ -62,42 +61,63 @@ export default function Calendar() {
         entries={entries}
         user={user}
         onSignOut={signOut}
+        currentView={view}
+        onChangeView={setView}
       />
 
       <div className={styles.main}>
         {/* HEADER */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <button className={styles.navBtn} onClick={prevMonth}>←</button>
-            <h1 className={styles.monthTitle}>
-              {MONTHS_ES[month]} <em>{year}</em>
-            </h1>
-            <button className={styles.navBtn} onClick={nextMonth}>→</button>
+            {view === 'month' && <>
+              <button className={styles.navBtn} onClick={prevMonth}>←</button>
+              <h1 className={styles.monthTitle}>
+                {MONTHS_ES[month]} <em>{year}</em>
+              </h1>
+              <button className={styles.navBtn} onClick={nextMonth}>→</button>
+            </>}
+            {view === 'cycle' && (
+              <h1 className={styles.monthTitle}>Vista por <em>ciclo</em></h1>
+            )}
           </div>
           <div className={styles.headerRight}>
-            <button className={styles.todayBtn} onClick={goToToday}>Hoy</button>
+            {/* Toggle de vista */}
+            <div className={styles.viewToggle}>
+              <button
+                className={`${styles.viewBtn} ${view === 'month' ? styles.viewBtnActive : ''}`}
+                onClick={() => setView('month')}
+              >Mensual</button>
+              <button
+                className={`${styles.viewBtn} ${view === 'cycle' ? styles.viewBtnActive : ''}`}
+                onClick={() => setView('cycle')}
+              >Por ciclo</button>
+            </div>
+            {view === 'month' && (
+              <button className={styles.todayBtn} onClick={goToToday}>Hoy</button>
+            )}
             <button className={styles.signOutMobile} onClick={signOut}>Salir</button>
           </div>
         </div>
 
-        {loading && <div className={styles.loadingBar} />}
+        {/* VISTA MENSUAL */}
+        {view === 'month' && <>
+          {loading && <div className={styles.loadingBar} />}
+          <div className={styles.dowRow}>
+            {DAYS_ES.map(d => <div key={d} className={styles.dow}>{d}</div>)}
+          </div>
+          <div className={styles.grid}>
+            {cells.map((cell, i) =>
+              cell
+                ? <CalCell key={cell.date} {...cell} onClick={openModal} />
+                : <div key={`empty-${i}`} className={styles.emptyCell} />
+            )}
+          </div>
+        </>}
 
-        {/* DOW HEADERS */}
-        <div className={styles.dowRow}>
-          {DAYS_ES.map(d => <div key={d} className={styles.dow}>{d}</div>)}
-        </div>
-
-        {/* CALENDAR GRID */}
-        <div className={styles.grid}>
-          {cells.map((cell, i) =>
-            cell
-              ? <CalCell key={cell.date} {...cell} onClick={openModal} />
-              : <div key={`empty-${i}`} className={styles.emptyCell} />
-          )}
-        </div>
+        {/* VISTA POR CICLO */}
+        {view === 'cycle' && <CycleView />}
       </div>
 
-      {/* MODAL */}
       {modal && (
         <EntryModal
           date={modal.date}
@@ -108,7 +128,6 @@ export default function Calendar() {
         />
       )}
 
-      {/* TOAST */}
       {toast && <div className={styles.toast}>{toast}</div>}
     </div>
   )
