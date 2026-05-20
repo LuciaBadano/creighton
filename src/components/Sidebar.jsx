@@ -27,18 +27,9 @@ export default function Sidebar({ currentYear, currentMonth, entries, onNavigate
       <div className={styles.section}>
         <div className={styles.sectionLabel}>Vista</div>
         <div className={styles.viewNav}>
-          <button
-            className={`${styles.viewNavBtn} ${currentView === 'month' ? styles.viewNavActive : ''}`}
-            onClick={() => onChangeView('month')}
-          >
-            📅 Mensual
-          </button>
-          <button
-            className={`${styles.viewNavBtn} ${currentView === 'cycle' ? styles.viewNavActive : ''}`}
-            onClick={() => onChangeView('cycle')}
-          >
-            🔄 Por ciclo
-          </button>
+          <button className={`${styles.viewNavBtn} ${currentView==='month' ? styles.viewNavActive:''}`} onClick={() => onChangeView('month')}>📅 Mensual</button>
+          <button className={`${styles.viewNavBtn} ${currentView==='cycle' ? styles.viewNavActive:''}`} onClick={() => onChangeView('cycle')}>🔄 Por ciclo</button>
+          <button className={`${styles.viewNavBtn} ${currentView==='quick' ? styles.viewNavActive:''}`} onClick={() => onChangeView('quick')}>🌙 Registro de hoy</button>
         </div>
       </div>
 
