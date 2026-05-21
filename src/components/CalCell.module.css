@@ -20,60 +20,98 @@
 .cell:hover {
   transform: scale(1.04);
   z-index: 2;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13);
 }
-.empty { aspect-ratio: 1; border-radius: 8px; }
-.empty_entry { background: var(--surface); border-color: var(--border); }
+.empty {
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
+.empty_entry {
+  background: var(--surface);
+  border-color: var(--border);
+}
 
 /* COLORES PRINCIPALES */
 .cellMenstrual {
-  background: #C94B2E;
-  border-color: #A33A20;
+  background: #c94b2e;
+  border-color: #a33a20;
 }
-.cellMenstrual .dayNum  { color: rgba(255,255,255,0.85); }
-.cellMenstrual .mainLetter { color: #fff; }
-.cellMenstrual .code    { color: rgba(255,255,255,0.75); }
+.cellMenstrual .dayNum {
+  color: rgba(255, 255, 255, 0.85);
+}
+.cellMenstrual .mainLetter {
+  color: #fff;
+}
+.cellMenstrual .code {
+  color: rgba(255, 255, 255, 0.75);
+}
 
 .cellSeco {
-  background: #4A7C3F;
-  border-color: #3A6130;
+  background: #4a7c3f;
+  border-color: #3a6130;
 }
-.cellSeco .dayNum    { color: rgba(255,255,255,0.85); }
-.cellSeco .mainLetter { color: #fff; }
-.cellSeco .code      { color: rgba(255,255,255,0.75); }
+.cellSeco .dayNum {
+  color: rgba(255, 255, 255, 0.85);
+}
+.cellSeco .mainLetter {
+  color: #fff;
+}
+.cellSeco .code {
+  color: rgba(255, 255, 255, 0.75);
+}
 
 .cellFertil {
-  background: #FFFDF5;
-  border-color: #D4C9A0;
+  background: #fffdf5;
+  border-color: #d4c9a0;
 }
-.cellFertil .dayNum  { color: var(--text2); }
-.cellFertil .babyIcon { color: #8B7D45; }
-.cellFertil .code    { color: var(--text3); }
+.cellFertil .dayNum {
+  color: var(--text2);
+}
+.cellFertil .babyIcon {
+  color: #8b7d45;
+}
+.cellFertil .code {
+  color: var(--text3);
+}
 
 .cellCuspide {
-  background: #FFF8E7;
-  border-color: #C9A227;
+  background: #fff8e7;
+  border-color: #c9a227;
   border-width: 2px;
 }
-.cellCuspide .dayNum   { color: var(--text2); }
-.cellCuspide .babyIcon { color: #8B6F00; }
-.cellCuspide .peakP    { color: #8B6F00; }
-.cellCuspide .code     { color: var(--text3); }
+.cellCuspide .dayNum {
+  color: var(--text2);
+}
+.cellCuspide .babyIcon {
+  color: #8b6f00;
+}
+.cellCuspide .peakP {
+  color: #8b6f00;
+}
+.cellCuspide .code {
+  color: var(--text3);
+}
 
 .cellPostPeak {
-  background: #FEF3F0;
-  border-color: #F0B8A8;
+  background: #fef3f0;
+  border-color: #f0b8a8;
   border-style: dashed;
 }
-.cellPostPeak .dayNum     { color: var(--text2); }
-.cellPostPeak .postPeakNum { color: #C94B2E; }
+.cellPostPeak .dayNum {
+  color: var(--text2);
+}
+.cellPostPeak .postPeakNum {
+  color: #c94b2e;
+}
 
 /* HOY */
 .today {
   box-shadow: 0 0 0 2px var(--accent) !important;
   border-color: var(--accent) !important;
 }
-.today .dayNum { font-weight: 700; }
+.today .dayNum {
+  font-weight: 700;
+}
 
 /* DÃA NUM (arriba) */
 .dayNum {
@@ -103,7 +141,9 @@
   flex: 1;
   z-index: 1;
 }
-.babyIcon { display: block; }
+.babyIcon {
+  display: block;
+}
 
 /* CÃšSPIDE: P + bebÃ© */
 .cuspideContent {
@@ -146,14 +186,34 @@
   margin-top: auto;
 }
 
+.freqCode {
+  font-size: 7px;
+  opacity: 0.8;
+  margin-top: 1px;
+}
+
 /* ============================
    RESPONSIVE MÃ“VIL
    ============================ */
 @media (max-width: 480px) {
-  .cell { border-radius: 6px; padding: 2px 1px 1px; gap: 0; }
-  .dayNum      { font-size: 9px; }
-  .mainLetter  { font-size: 13px; }
-  .postPeakNum { font-size: 15px; }
-  .peakP       { font-size: 11px; }
-  .code        { font-size: 7px; }
+  .cell {
+    border-radius: 6px;
+    padding: 2px 1px 1px;
+    gap: 0;
+  }
+  .dayNum {
+    font-size: 9px;
+  }
+  .mainLetter {
+    font-size: 13px;
+  }
+  .postPeakNum {
+    font-size: 15px;
+  }
+  .peakP {
+    font-size: 11px;
+  }
+  .code {
+    font-size: 7px;
+  }
 }

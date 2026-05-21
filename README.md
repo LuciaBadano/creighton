@@ -25,6 +25,7 @@ Funciona en computadora y celular. Tus datos se guardan en la nube (Supabase).
 6. Hacé click en **Run** (o Ctrl+Enter)
 
 Luego, para obtener tus claves:
+
 - Andá a **Project Settings → API**
 - Copiá la **Project URL** (algo como `https://xxxxx.supabase.co`)
 - Copiá la **anon/public key** (clave larga que empieza con `eyJ...`)
@@ -54,9 +55,11 @@ VITE_SUPABASE_ANON_KEY=eyJTU-CLAVE-AQUI...
 ```
 
 Para probar en tu computadora:
+
 ```bash
 npm run dev
 ```
+
 Abrí http://localhost:5173 en el navegador.
 
 ---
@@ -82,6 +85,7 @@ Abrí http://localhost:5173 en el navegador.
 
 Simplemente abrí la URL de Vercel en el navegador del celular.
 Para instalarlo como app:
+
 - **iPhone**: Safari → compartir → "Agregar a pantalla de inicio"
 - **Android**: Chrome → menú (⋮) → "Agregar a pantalla de inicio"
 
@@ -89,15 +93,15 @@ Para instalarlo como app:
 
 ## 📓 Códigos del Método Creighton incluidos
 
-| Código | Descripción |
-|--------|-------------|
-| 0      | Seco |
+| Código | Descripción            |
+| ------ | ---------------------- |
+| 0      | Seco                   |
 | 2      | Húmedo sin lubricación |
 | 2W     | Mojado sin lubricación |
 | 4      | Brillo sin lubricación |
-| 6      | Pegajoso (0.5 cm) |
-| 8      | Ligoso (1-2 cm) |
-| 10     | Elástico (2.5+ cm) |
+| 6      | Pegajoso (0.5 cm)      |
+| 8      | Ligoso (1-2 cm)        |
+| 10     | Elástico (2.5+ cm)     |
 | 10DL   | Húmedo con lubricación |
 | 10SL   | Brillo con lubricación |
 | 10WL   | Mojado con lubricación |
@@ -109,6 +113,7 @@ Para instalarlo como app:
 ## 🛠️ Modificar la app con Claude
 
 Esta app está diseñada para crecer con vos. Podés pedirle a Claude que:
+
 - Agregue nuevas vistas (gráfico de ciclo, historial, exportar PDF)
 - Cambie colores o diseño
 - Agregue notificaciones o recordatorios

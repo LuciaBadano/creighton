@@ -1,47 +1,77 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:        #FAF8F4;
-  --surface:   #FFFFFF;
-  --surface2:  #F3F0EA;
-  --border:    rgba(0,0,0,0.09);
-  --text:      #1C1A16;
-  --text2:     #6B6860;
-  --text3:     #A8A59F;
-  --accent:    #8B6F47;
-  --accent-lt: #F0E8DC;
-  --radius:    12px;
-  --radius-sm: 8px;
-
-  --c-sangrado:    #C94B2E;
-  --bg-sangrado:   #FAEAE5;
-  --c-spotting:    #D4724D;
-  --bg-spotting:   #FDF0ED;
-  --c-seco:        #4A7C3F;
-  --bg-seco:       #EAF2E7;
-  --c-amarillo:    #A67C1A;
-  --bg-amarillo:   #FAF2DC;
-  --c-fertil:      #2C6FAC;
-  --bg-fertil:     #E5EEFA;
-  --c-cuspide:     #6B47A8;
-  --bg-cuspide:    #EDE8F7;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html, body, #root { height: 100%; }
+:root {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --surface2: #f3f0ea;
+  --border: rgba(0, 0, 0, 0.09);
+  --text: #1c1a16;
+  --text2: #6b6860;
+  --text3: #a8a59f;
+  --accent: #8b6f47;
+  --accent-lt: #f0e8dc;
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  --c-sangrado: #c94b2e;
+  --bg-sangrado: #faeae5;
+  --c-spotting: #d4724d;
+  --bg-spotting: #fdf0ed;
+  --c-seco: #4a7c3f;
+  --bg-seco: #eaf2e7;
+  --c-amarillo: #a67c1a;
+  --bg-amarillo: #faf2dc;
+  --c-fertil: #2c6fac;
+  --bg-fertil: #e5eefa;
+  --c-cuspide: #6b47a8;
+  --bg-cuspide: #ede8f7;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-button { font-family: inherit; }
-input, textarea, select { font-family: inherit; }
+button {
+  font-family: inherit;
+}
+input,
+textarea,
+select {
+  font-family: inherit;
+}
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
 
 /* Utilities */
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
