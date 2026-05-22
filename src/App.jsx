@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Calendar from "./pages/Calendar";
+import { ROUTER } from "./constants/router";
 
-function ProtectedRoute({ children }) {
+const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading)
     return (
@@ -22,22 +23,22 @@ function ProtectedRoute({ children }) {
         Cargando…
       </div>
     );
-  return user ? children : <Navigate to="/login" replace />;
-}
+  return user ? children : <Navigate to={ROUTER.LOGIN} replace />;
+};
 
-function PublicRoute({ children }) {
+const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return null;
-  return !user ? children : <Navigate to="/" replace />;
-}
+  return !user ? children : <Navigate to={ROUTER.CALENDAR} replace />;
+};
 
-export default function App() {
+const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route
-            path="/login"
+            path={ROUTER.LOGIN}
             element={
               <PublicRoute>
                 <Login />
@@ -56,4 +57,6 @@ export default function App() {
       </BrowserRouter>
     </AuthProvider>
   );
-}
+};
+
+export default App;
