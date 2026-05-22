@@ -39,6 +39,13 @@ export const BLEEDING_INTENSITY_CODES = {
   Abundante: "H",
 };
 
+export const BLEEDING_INTENSITY_LABELS = [
+  "Muy ligero",
+  "Ligero",
+  "Moderado",
+  "Abundante",
+];
+
 export const BLEEDING_TYPES = [
   { code: "H", label: "Sangrado menstrual", color: "sangrado" },
   { code: "VL", label: "Muy ligero", color: "sangrado" },
@@ -71,6 +78,9 @@ export const DAY_TYPES = [
   },
   { value: "spotting", label: "Manchado", letter: "S", colorKey: "spotting" },
 ];
+
+export const BLEEDING_DAY_TYPES = ["menstrual", "spotting"];
+export const MUCUS_DAY_TYPES = ["mucus", "fertil", "cuspide"];
 
 export const COLOR_MAP = {
   sangrado: { bg: "#FAEAE5", fg: "#C94B2E", border: "#E8A090" },
