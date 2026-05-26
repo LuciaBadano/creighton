@@ -15,7 +15,6 @@ import styles from "./Calendar.module.css";
 const QuickEntry = ({ todayKey, entry, onSave, onDelete }) => {
   const [y, m, d] = todayKey.split("-").map(Number);
   const dateObj = new Date(y, m - 1, d);
-
   const [dayType, setDayType] = useState(entry?.day_type || "");
   const [sensCode, setSensCode] = useState(entry?.sensation_code || "");
   const [charCodes, setCharCodes] = useState(entry?.characteristic_codes || []);
