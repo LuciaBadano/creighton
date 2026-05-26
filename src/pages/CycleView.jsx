@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
   useAllMenstrualDates,
   useEntriesRange,
@@ -58,9 +58,8 @@ function CycleRow({ cycle, onCellClick }) {
   );
 }
 
-export default function CycleView({ onOpenModal }) {
+const CycleView = ({ modal, setModal }) => {
   const { menstrualDates, loading } = useAllMenstrualDates();
-  const [modal, setModal] = useState(null);
 
   // Para el modal necesitamos saveEntry/deleteEntry — usamos el mes del día seleccionado
   const modalDate = modal?.date || null;
@@ -131,4 +130,6 @@ export default function CycleView({ onOpenModal }) {
       )}
     </div>
   );
-}
+};
+
+export default CycleView;

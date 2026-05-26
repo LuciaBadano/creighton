@@ -1,5 +1,5 @@
 // ─── REGISTRO RÁPIDO (pantalla "antes de dormir") ────────────────────────────
-import { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   DAY_TYPES,
   SENSATION_CODES,
@@ -15,8 +15,6 @@ import styles from "./Calendar.module.css";
 const QuickEntry = ({ todayKey, entry, onSave, onDelete }) => {
   const [y, m, d] = todayKey.split("-").map(Number);
   const dateObj = new Date(y, m - 1, d);
-  const dateLabel = `${DAYS_LONG[dateObj.getDay()]}, ${d} de ${MONTHS_ES[m - 1]}`;
-
   const [dayType, setDayType] = useState(entry?.day_type || "");
   const [sensCode, setSensCode] = useState(entry?.sensation_code || "");
   const [charCodes, setCharCodes] = useState(entry?.characteristic_codes || []);
@@ -93,8 +91,8 @@ const QuickEntry = ({ todayKey, entry, onSave, onDelete }) => {
           Ya tenés un registro de hoy. Podés modificarlo.
         </div>
       )}
-      
-       {/* GUÍA DE REGISTRO */}
+
+      {/* GUÍA DE REGISTRO */}
       <div className={styles.quickSection}>
         <div className={styles.quickLabel}>Guía de registro</div>
         <div className={styles.quickHelpText}>
@@ -150,8 +148,6 @@ const QuickEntry = ({ todayKey, entry, onSave, onDelete }) => {
           </div>
         </div>
       )}
-
-     
 
       {/* CÓDIGO SENSACIÓN */}
       {!isBleeding && (
