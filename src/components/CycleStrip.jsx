@@ -1,3 +1,4 @@
+import React from "react";
 import { DAY_TYPES, COLOR_MAP, BLEEDING_INTENSITY_CODES } from "../lib/codes";
 import styles from "./CycleStrip.module.css";
 import BabyIcon from "../helpers/BabyIcon";

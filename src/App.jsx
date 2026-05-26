@@ -1,7 +1,8 @@
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
-import Calendar from "./pages/Calendar";
+import Main from "./pages/Main";
 import { ROUTER } from "./constants/router";
 
 const ProtectedRoute = ({ children }) => {
@@ -49,7 +50,7 @@ const App = () => {
             path="/*"
             element={
               <ProtectedRoute>
-                <Calendar />
+                <Main />
               </ProtectedRoute>
             }
           />

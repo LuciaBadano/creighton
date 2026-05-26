@@ -1,112 +1,22 @@
-import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+import React from "react";
 import { useEntries } from "../hooks/useEntries";
 import CalCell from "../components/CalCell";
-import EntryModal from "../components/EntryModal";
-import Sidebar from "../components/Sidebar";
-import CycleView from "./CycleView";
 import styles from "./Calendar.module.css";
-import { MONTHS_ES, DAYS_ES } from "../constants/dates";
-import QuickEntry from "./QuickEnty";
+import { DAYS_ES } from "../constants/dates";
+import { buildPostPeakMap } from "../helpers/Calendar";
+import { VIEWS } from "../constants/views";
 
-// Códigos de sensación que califican como moco "pico" (transparente, elástico, lubricante)
-const PEAK_SENSATION_CODES = ["10", "10DL", "10SL", "10WL"];
-const PEAK_CHAR_CODES = ["K", "L"]; // Transparente, Lubricante
-
-function isPeakQuality(entry) {
-  if (!entry) return false;
-  if (entry.is_peak) return true;
-  if (entry.day_type === "cuspide") return true;
-  if (PEAK_SENSATION_CODES.includes(entry.sensation_code)) return true;
-  if (entry.characteristic_codes?.some((c) => PEAK_CHAR_CODES.includes(c)))
-    return true;
-  return false;
-}
-
-// Calcula el día pico real: último día consecutivo de moco fértil con calidad pico
-function findPeakDay(entriesMap, year, month) {
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  let peakDate = null;
-
-  for (let d = daysInMonth; d >= 1; d--) {
-    const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-    const e = entriesMap[key];
-    if (!e) continue;
-    const isMucusType = ["fertil", "mucus", "cuspide"].includes(e.day_type);
-    if (isMucusType && isPeakQuality(e)) {
-      peakDate = key;
-      break;
-    }
-  }
-  return peakDate;
-}
-
-// Genera mapa de fecha → día post-pico (1, 2 o 3)
-function buildPostPeakMap(entriesMap, year, month) {
-  const peak = findPeakDay(entriesMap, year, month);
-  if (!peak) return {};
-  const map = {};
-  const peakD = new Date(peak + "T12:00:00");
-  for (let i = 1; i <= 3; i++) {
-    const nd = new Date(peakD);
-    nd.setDate(nd.getDate() + i);
-    if (nd.getFullYear() === year && nd.getMonth() === month) {
-      const key = `${nd.getFullYear()}-${String(nd.getMonth() + 1).padStart(2, "0")}-${String(nd.getDate()).padStart(2, "0")}`;
-      map[key] = i;
-    }
-  }
-  return map;
-}
-
-export default function Calendar() {
-  const { user, signOut } = useAuth();
+const Calendar = ({ setModal, view, year, month }) => {
   const now = new Date();
-  const [view, setView] = useState("cycle"); // 'month' | 'cycle' | 'quick'
-  const [year, setYear] = useState(now.getFullYear());
-  const [month, setMonth] = useState(now.getMonth());
-  const [modal, setModal] = useState(null);
-  const [toast, setToast] = useState(null);
 
-  const { entries, loading, saveEntry, deleteEntry } = useEntries(year, month);
+  const { entries, loading } = useEntries(year, month);
 
   const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const postPeakMap = buildPostPeakMap(entries, year, month);
 
-  const prevMonth = () => {
-    if (month === 0) {
-      setMonth(11);
-      setYear((y) => y - 1);
-    } else setMonth((m) => m - 1);
-  };
-  const nextMonth = () => {
-    if (month === 11) {
-      setMonth(0);
-      setYear((y) => y + 1);
-    } else setMonth((m) => m + 1);
-  };
-  const goToToday = () => {
-    setYear(now.getFullYear());
-    setMonth(now.getMonth());
-  };
-
   const openModal = (date, entry) => setModal({ date, entry: entry || null });
-  const closeModal = () => setModal(null);
-
-  const handleSave = async (date, payload) => {
-    const result = await saveEntry(date, payload);
-    if (!result.error) showToast("Observación guardada ✓");
-    return result;
-  };
-  const handleDelete = async (date) => {
-    await deleteEntry(date);
-    showToast("Registro eliminado");
-  };
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
-  };
 
   const cells = [];
   for (let i = 0; i < firstDow; i++) cells.push(null);
@@ -123,124 +33,29 @@ export default function Calendar() {
 
   return (
     <div className={styles.layout}>
-      <Sidebar
-        currentYear={year}
-        currentMonth={month}
-        entries={entries}
-        user={user}
-        onSignOut={signOut}
-        currentView={view}
-        onChangeView={setView}
-      />
-
-      <div className={styles.main}>
-        {/* HEADER */}
-        <div className={styles.header}>
-          <div className={styles.headerLeft}>
-            {view === "month" && (
-              <>
-                <button className={styles.navBtn} onClick={prevMonth}>
-                  ←
-                </button>
-                <h1 className={styles.monthTitle}>
-                  {MONTHS_ES[month]} <em>{year}</em>
-                </h1>
-                <button className={styles.navBtn} onClick={nextMonth}>
-                  →
-                </button>
-              </>
-            )}
-            {view === "cycle" && (
-              <h1 className={styles.monthTitle}>
-                Vista por <em>ciclo</em>
-              </h1>
-            )}
-            {view === "quick" && (
-              <h1 className={styles.monthTitle}>
-                Registro <em>rápido</em>
-              </h1>
+      {view === VIEWS.MONTH && (
+        <>
+          {loading && <div className={styles.loadingBar} />}
+          <div className={styles.dowRow}>
+            {DAYS_ES.map((d) => (
+              <div key={d} className={styles.dow}>
+                {d}
+              </div>
+            ))}
+          </div>
+          <div className={styles.grid}>
+            {cells.map((cell, i) =>
+              cell ? (
+                <CalCell key={cell.date} {...cell} onClick={openModal} />
+              ) : (
+                <div key={`empty-${i}`} className={styles.emptyCell} />
+              ),
             )}
           </div>
-          <div className={styles.headerRight}>
-            <div className={styles.viewToggle}>
-              <button
-                className={`${styles.viewBtn} ${view === "month" ? styles.viewBtnActive : ""}`}
-                onClick={() => setView("month")}
-              >
-                📅 Mes
-              </button>
-              <button
-                className={`${styles.viewBtn} ${view === "cycle" ? styles.viewBtnActive : ""}`}
-                onClick={() => setView("cycle")}
-              >
-                🔄 Ciclo
-              </button>
-              <button
-                className={`${styles.viewBtn} ${view === "quick" ? styles.viewBtnActive : ""}`}
-                onClick={() => setView("quick")}
-              >
-                🌙 Hoy
-              </button>
-            </div>
-            {view === "month" && (
-              <button className={styles.todayBtn} onClick={goToToday}>
-                Hoy
-              </button>
-            )}
-            <button className={styles.signOutMobile} onClick={signOut}>
-              Salir
-            </button>
-          </div>
-        </div>
-
-        {/* VISTA MENSUAL */}
-        {view === "month" && (
-          <>
-            {loading && <div className={styles.loadingBar} />}
-            <div className={styles.dowRow}>
-              {DAYS_ES.map((d) => (
-                <div key={d} className={styles.dow}>
-                  {d}
-                </div>
-              ))}
-            </div>
-            <div className={styles.grid}>
-              {cells.map((cell, i) =>
-                cell ? (
-                  <CalCell key={cell.date} {...cell} onClick={openModal} />
-                ) : (
-                  <div key={`empty-${i}`} className={styles.emptyCell} />
-                ),
-              )}
-            </div>
-          </>
-        )}
-
-        {/* VISTA POR CICLO */}
-        {view === "cycle" && <CycleView />}
-
-        {/* REGISTRO RÁPIDO */}
-        {view === "quick" && (
-          <QuickEntry
-            todayKey={todayKey}
-            entry={entries[todayKey] || null}
-            onSave={handleSave}
-            onDelete={handleDelete}
-          />
-        )}
-      </div>
-
-      {modal && (
-        <EntryModal
-          date={modal.date}
-          entry={modal.entry}
-          onSave={handleSave}
-          onDelete={handleDelete}
-          onClose={closeModal}
-        />
+        </>
       )}
-
-      {toast && <div className={styles.toast}>{toast}</div>}
     </div>
   );
-}
+};
+
+export default Calendar;

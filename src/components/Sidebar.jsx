@@ -1,31 +1,8 @@
+import React from "react";
 import { DAY_TYPES, COLOR_MAP } from "../lib/codes";
 import styles from "./Sidebar.module.css";
 
-const MONTHS_ES = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
-
-export default function Sidebar({
-  currentYear,
-  currentMonth,
-  entries,
-  onNavigate,
-  user,
-  onSignOut,
-  currentView,
-  onChangeView,
-}) {
+const Sidebar = ({ entries, user, onSignOut, currentView, onChangeView }) => {
   const entriesArr = Object.values(entries);
 
   const stats = DAY_TYPES.map((t) => ({
@@ -131,4 +108,6 @@ export default function Sidebar({
       </div>
     </aside>
   );
-}
+};
+
+export default Sidebar;

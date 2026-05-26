@@ -1,15 +1,9 @@
-import { DAY_TYPES, COLOR_MAP, BLEEDING_INTENSITY_CODES } from "../lib/codes";
+import React from "react";
+import { DAY_TYPES, BLEEDING_INTENSITY_CODES } from "../lib/codes";
 import styles from "./CalCell.module.css";
 import BabyIcon from "../helpers/BabyIcon";
 
-export default function CalCell({
-  day,
-  date,
-  entry,
-  isToday,
-  onClick,
-  postPeakDay,
-}) {
+const CalCell = ({ day, date, entry, isToday, onClick, postPeakDay }) => {
   if (!day) return <div className={styles.empty} />;
 
   const dayType = entry
@@ -92,4 +86,6 @@ export default function CalCell({
       )}
     </button>
   );
-}
+};
+
+export default CalCell;

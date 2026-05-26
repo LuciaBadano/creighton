@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "../components/CalCell.module.css";
 
 export default function BabyIcon({ size = 16 }) {
