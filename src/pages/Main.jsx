@@ -11,7 +11,7 @@ import Calendar from "./Calendar";
 import { buildPostPeakMap } from "../helpers/Calendar";
 import { VIEWS } from "../constants/views";
 
-const Main = () => {
+const Main = ({ isAdmin, onOpenAdmin }) => {
   const { user, signOut } = useAuth();
   const now = new Date();
   const [view, setView] = useState(VIEWS.CYCLE);
@@ -83,6 +83,8 @@ const Main = () => {
         onSignOut={signOut}
         currentView={view}
         onChangeView={setView}
+        isAdmin={isAdmin}
+        onOpenAdmin={onOpenAdmin}
       />
 
       <div className={styles.main}>

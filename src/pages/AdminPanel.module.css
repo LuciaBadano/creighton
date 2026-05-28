@@ -1,0 +1,502 @@
+/* ===== LAYOUT ===== */
+.page {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logoCircle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Serif Display", serif;
+  font-style: italic;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.appName {
+  font-family: "DM Serif Display", serif;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.appName em {
+  font-style: italic;
+  color: var(--accent);
+}
+.appSub {
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.sideSection {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sideLabel {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text3);
+  margin-bottom: 5px;
+}
+.sideBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text2);
+  font-family: "DM Sans", sans-serif;
+  transition: all 0.13s;
+}
+.sideBtn:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+.sideBtnActive {
+  background: var(--accent-lt) !important;
+  color: var(--accent) !important;
+  font-weight: 500;
+}
+
+.badge {
+  background: #c94b2e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+.badgeGray {
+  background: var(--surface2);
+  color: var(--text3);
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* ===== MAIN ===== */
+.main {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  min-width: 0;
+}
+@media (max-width: 768px) {
+  .main {
+    padding: 0.875rem;
+  }
+}
+
+.mobileHeader {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .mobileHeader {
+    display: flex;
+  }
+}
+.mobileBack {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text2);
+  font-family: "DM Sans", sans-serif;
+}
+.mobileTabs {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mobileTab {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text2);
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.mobileTabActive {
+  background: var(--accent-lt);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.mainHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.mainTitle {
+  font-family: "DM Serif Display", serif;
+  font-size: 26px;
+}
+.mainTitle em {
+  font-style: italic;
+  color: var(--accent);
+}
+.count {
+  font-size: 13px;
+  color: var(--text3);
+}
+
+.loadingBar {
+  height: 2px;
+  background: var(--accent-lt);
+  border-radius: 1px;
+  margin-bottom: 1rem;
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.empty {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text3);
+}
+.emptyIcon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+.empty p {
+  font-size: 14px;
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== USER CARD ===== */
+.userCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.13s;
+}
+.cardPending {
+  border-color: #d4b96a;
+  box-shadow: 0 0 0 1px #d4b96a22;
+}
+.userCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+}
+.userCardHeader:hover {
+  background: var(--surface2);
+}
+
+.userAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent-lt);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.userInfo {
+  flex: 1;
+  min-width: 0;
+}
+.userName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.userEmail {
+  font-size: 12px;
+  color: var(--text3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.userMeta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 1px;
+}
+
+.userRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.roleBadge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.expandIcon {
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.quickActions {
+  display: flex;
+  gap: 8px;
+  padding: 0 1.25rem 1rem;
+  flex-wrap: wrap;
+}
+.btnApprove {
+  padding: 8px 16px;
+  background: #4a7c3f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: opacity 0.13s;
+}
+.btnApprove:hover {
+  opacity: 0.88;
+}
+.btnApprove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnMakeAdmin {
+  padding: 8px 16px;
+  background: var(--bg-cuspide);
+  color: var(--c-cuspide);
+  border: 1px solid var(--c-cuspide);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: all 0.13s;
+}
+.btnMakeAdmin:hover {
+  opacity: 0.88;
+}
+.btnMakeAdmin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnRevoke {
+  padding: 8px 16px;
+  background: none;
+  color: var(--c-sangrado);
+  border: 1px solid var(--bg-sangrado);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: all 0.13s;
+}
+.btnRevoke:hover {
+  background: var(--bg-sangrado);
+}
+.btnRevoke:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cardToast {
+  margin: 0 1.25rem 1rem;
+  background: #eaf2e7;
+  color: #4a7c3f;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  border: 1px solid #9ac48f;
+}
+
+.userCalWrap {
+  padding: 0 1.25rem 1.25rem;
+}
+.userCalTitle {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.noCalMsg {
+  font-size: 13px;
+  color: var(--text3);
+  padding: 8px 0;
+}
+
+/* ===== MINI CALENDARIO ===== */
+.miniCal {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  max-width: 380px;
+}
+.miniCalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.miniNavBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.miniMonthTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.miniLoading {
+  height: 2px;
+  background: var(--accent-lt);
+  border-radius: 1px;
+  margin-bottom: 6px;
+  animation: pulse 1.2s infinite;
+}
+.miniDowRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 3px;
+}
+.miniDow {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  padding: 2px 0;
+}
+.miniGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.miniCell {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.miniToday {
+  box-shadow: 0 0 0 1.5px var(--accent);
+}
+.miniDay {
+  font-size: 9px;
+  color: var(--text3);
+  line-height: 1;
+}
+.miniLetter {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+.miniPeak {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 7px;
+  font-weight: 800;
+  color: var(--c-cuspide);
+}
+.miniStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.miniStat {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-weight: 500;
+}
