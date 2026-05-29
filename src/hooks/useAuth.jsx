@@ -10,7 +10,8 @@ import { supabase } from "../lib/supabase";
 
 const AuthContext = createContext({});
 
-// Lee la sesión cacheada de localStorage de forma síncrona
+const PROFILE_CACHE_KEY = "creighton_profile";
+
 const getCachedUser = () => {
   try {
     const key = Object.keys(localStorage).find(
@@ -30,17 +31,35 @@ const getCachedUser = () => {
   }
 };
 
+const getCachedProfile = () => {
+  try {
+    const raw = localStorage.getItem(PROFILE_CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setCachedProfile = (profile) => {
+  try {
+    if (profile)
+      localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(profile));
+    else localStorage.removeItem(PROFILE_CACHE_KEY);
+  } catch {}
+};
+
 export function AuthProvider({ children }) {
   const cachedUser = getCachedUser();
+  const cachedProfile = cachedUser ? getCachedProfile() : null;
 
   const [user, setUser] = useState(cachedUser);
-  const [profile, setProfile] = useState(null);
-  // Si hay usuario cacheado, no mostramos loader — Supabase confirma en background
+  const [profile, setProfile] = useState(cachedProfile);
   const [loading, setLoading] = useState(!cachedUser);
 
   const fetchProfile = useCallback(async (uid) => {
     if (!uid) {
       setProfile(null);
+      setCachedProfile(null);
       return;
     }
 
@@ -86,12 +105,15 @@ export function AuthProvider({ children }) {
             setProfile(null);
             return;
           }
-          setProfile({ id: uid, email: authUser.email, role: "pending" });
+          const p = { id: uid, email: authUser.email, role: "pending" };
+          setProfile(p);
+          setCachedProfile(p);
         }
         return;
       }
 
       setProfile(data);
+      setCachedProfile(data);
     } catch (e) {
       console.warn("fetchProfile exception:", e);
       setProfile(null);
@@ -101,12 +123,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     let mounted = true;
 
-    // Si había usuario cacheado, cargamos su perfil inmediatamente
+    // Si había usuario cacheado, cargamos su perfil en background
     if (cachedUser) {
       fetchProfile(cachedUser.id);
     }
 
-    // Supabase confirma (o invalida) la sesión de forma asíncrona
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -115,6 +136,7 @@ export function AuthProvider({ children }) {
       setUser(u);
       if (event === "SIGNED_OUT") {
         setProfile(null);
+        setCachedProfile(null);
         setLoading(false);
       } else {
         await fetchProfile(u?.id);
@@ -158,12 +180,12 @@ export function AuthProvider({ children }) {
   const signOut = async () => {
     setProfile(null);
     setUser(null);
+    setCachedProfile(null);
     await supabase.auth.signOut();
   };
 
   const refreshProfile = () => fetchProfile(user?.id);
 
-  // Derivados de rol
   const isAdmin = profile?.role === "admin";
   const isPending = profile?.role === "pending" || (user && !profile);
   const isApproved = profile?.role === "user" || profile?.role === "admin";

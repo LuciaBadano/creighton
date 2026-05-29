@@ -1,16 +1,19 @@
 import React from "react";
-import { useEntries } from "../hooks/useEntries";
 import CalCell from "../components/CalCell";
 import styles from "./Calendar.module.css";
 import { DAYS_ES } from "../constants/dates";
 import { buildPostPeakMap } from "../helpers/Calendar";
 import { VIEWS } from "../constants/views";
 
-const Calendar = ({ setModal, view, year, month }) => {
+const Calendar = ({
+  setModal,
+  view,
+  year,
+  month,
+  entries = {},
+  loading = false,
+}) => {
   const now = new Date();
-
-  const { entries, loading } = useEntries(year, month);
-
   const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
