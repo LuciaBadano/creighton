@@ -2,7 +2,15 @@ import React from "react";
 import { DAY_TYPES, COLOR_MAP } from "../lib/codes";
 import styles from "./Sidebar.module.css";
 
-const Sidebar = ({ entries, user, onSignOut, currentView, onChangeView }) => {
+const Sidebar = ({
+  entries,
+  user,
+  onSignOut,
+  currentView,
+  onChangeView,
+  isAdmin,
+  onOpenAdmin,
+}) => {
   const entriesArr = Object.values(entries);
 
   const stats = DAY_TYPES.map((t) => ({
@@ -102,6 +110,11 @@ const Sidebar = ({ entries, user, onSignOut, currentView, onChangeView }) => {
 
       <div className={styles.footer}>
         <span className={styles.userEmail}>{user?.email}</span>
+        {isAdmin && onOpenAdmin && (
+          <button className={styles.adminBtn} onClick={onOpenAdmin}>
+            ⚙️ Panel admin
+          </button>
+        )}
         <button className={styles.signOutBtn} onClick={onSignOut}>
           Salir
         </button>

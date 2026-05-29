@@ -26,12 +26,12 @@
   aspect-ratio: 1;
   border-radius: 8px;
 }
-.empty_entry {
+.emptyEntry {
   background: var(--surface);
   border-color: var(--border);
 }
 
-/* COLORES PRINCIPALES */
+/* ───── ROJO: Menstruación ───── */
 .cellMenstrual {
   background: #c94b2e;
   border-color: #a33a20;
@@ -46,6 +46,22 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* ───── ROJO CLARO: Spotting ───── */
+.cellSpotting {
+  background: #f5c4b8;
+  border-color: #d48070;
+}
+.cellSpotting .dayNum {
+  color: #7a2e1f;
+}
+.cellSpotting .mainLetter {
+  color: #7a2e1f;
+}
+.cellSpotting .code {
+  color: #9a4030;
+}
+
+/* ───── VERDE: Día seco ───── */
 .cellSeco {
   background: #4a7c3f;
   border-color: #3a6130;
@@ -60,6 +76,23 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* ───── VERDE + BEBÉ: Seco post-pico (días 1,2,3) ───── */
+.cellSecoFertil {
+  background: #6aab5e;
+  border-color: #4a8a40;
+  border-width: 2px;
+}
+.cellSecoFertil .dayNum {
+  color: rgba(255, 255, 255, 0.9);
+}
+.cellSecoFertil .mainLetterSmall {
+  color: #fff;
+}
+.cellSecoFertil .secoFertilContent {
+  color: #fff;
+}
+
+/* ───── BLANCO + BEBÉ: Moco no-pico ───── */
 .cellFertil {
   background: #fffdf5;
   border-color: #d4c9a0;
@@ -67,13 +100,11 @@
 .cellFertil .dayNum {
   color: var(--text2);
 }
-.cellFertil .babyIcon {
-  color: #8b7d45;
-}
 .cellFertil .code {
   color: var(--text3);
 }
 
+/* ───── AMARILLO + BEBÉ: Moco pico (cúspide) ───── */
 .cellCuspide {
   background: #fff8e7;
   border-color: #c9a227;
@@ -82,9 +113,6 @@
 .cellCuspide .dayNum {
   color: var(--text2);
 }
-.cellCuspide .babyIcon {
-  color: #8b6f00;
-}
 .cellCuspide .peakP {
   color: #8b6f00;
 }
@@ -92,19 +120,20 @@
   color: var(--text3);
 }
 
-.cellPostPeak {
+/* ───── POST-PICO SIN ENTRADA: fondo neutro con número ───── */
+.cellPostPeakEmpty {
   background: #fef3f0;
   border-color: #f0b8a8;
   border-style: dashed;
 }
-.cellPostPeak .dayNum {
+.cellPostPeakEmpty .dayNum {
   color: var(--text2);
 }
-.cellPostPeak .postPeakNum {
+.cellPostPeakEmpty .postPeakNum {
   color: #c94b2e;
 }
 
-/* HOY */
+/* ───── HOY ───── */
 .today {
   box-shadow: 0 0 0 2px var(--accent) !important;
   border-color: var(--accent) !important;
@@ -113,7 +142,7 @@
   font-weight: 700;
 }
 
-/* DÃA NUM (arriba) */
+/* ───── NÚMERO DEL DÍA ───── */
 .dayNum {
   font-size: 11px;
   font-weight: 400;
@@ -124,7 +153,7 @@
   padding-left: 3px;
 }
 
-/* LETRA PRINCIPAL (M, V, S) */
+/* ───── LETRAS M / S / V ───── */
 .mainLetter {
   font-size: 16px;
   font-weight: 700;
@@ -132,8 +161,13 @@
   z-index: 1;
   margin-top: 1px;
 }
+.mainLetterSmall {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
 
-/* CONTENIDO FÃ‰RTIL */
+/* ───── CONTENIDO BEBÉ (moco normal) ───── */
 .fertilContent {
   display: flex;
   align-items: center;
@@ -141,11 +175,19 @@
   flex: 1;
   z-index: 1;
 }
-.babyIcon {
-  display: block;
+
+/* ───── SECO FÉRTIL: V + bebé ───── */
+.secoFertilContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 1px;
+  z-index: 1;
 }
 
-/* CÃšSPIDE: P + bebÃ© */
+/* ───── CÚSPIDE: P + bebé ───── */
 .cuspideContent {
   display: flex;
   flex-direction: column;
@@ -162,7 +204,7 @@
   letter-spacing: -0.02em;
 }
 
-/* POST-PICO: nÃºmero 1, 2, 3 */
+/* ───── POST-PICO NÚMERO ───── */
 .postPeakNum {
   font-size: 18px;
   font-weight: 700;
@@ -171,7 +213,7 @@
   margin-top: 2px;
 }
 
-/* CÃ³digo sensaciÃ³n */
+/* ───── CÓDIGO SENSACIÓN ───── */
 .code {
   font-size: 8px;
   font-weight: 600;
@@ -185,16 +227,13 @@
   padding: 0 1px;
   margin-top: auto;
 }
-
 .freqCode {
   font-size: 7px;
   opacity: 0.8;
   margin-top: 1px;
 }
 
-/* ============================
-   RESPONSIVE MÃ“VIL
-   ============================ */
+/* ───── RESPONSIVE ───── */
 @media (max-width: 480px) {
   .cell {
     border-radius: 6px;

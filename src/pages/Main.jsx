@@ -20,12 +20,9 @@ const Main = () => {
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState(null);
 
-  const { entries, saveEntry, deleteEntry } = useEntries(year, month);
+  const { entries, loading, saveEntry, deleteEntry } = useEntries(year, month);
 
   const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-  const firstDow = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const postPeakMap = buildPostPeakMap(entries, year, month);
 
   const prevMonth = () => {
     if (month === 0) {
@@ -48,30 +45,23 @@ const Main = () => {
 
   const handleSave = async (date, payload) => {
     const result = await saveEntry(date, payload);
-    if (!result.error) showToast("Observación guardada ✓");
+    if (!result.error) {
+      // Actualiza el modal con la entrada guardada para reflejar cambios
+      if (modal) setModal((m) => ({ ...m, entry: result.data }));
+      showToast("Observación guardada ✓");
+    }
     return result;
   };
+
   const handleDelete = async (date) => {
     await deleteEntry(date);
     showToast("Registro eliminado");
   };
+
   const showToast = (msg) => {
     setToast(msg);
     setTimeout(() => setToast(null), 2500);
   };
-
-  const cells = [];
-  for (let i = 0; i < firstDow; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) {
-    const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-    cells.push({
-      day: d,
-      date: key,
-      entry: entries[key] || null,
-      isToday: key === todayKey,
-      postPeakDay: postPeakMap[key] || null,
-    });
-  }
 
   return (
     <div className={styles.layout}>
@@ -145,9 +135,16 @@ const Main = () => {
           </div>
         </div>
 
-        {/* VISTA MENSUAL */}
+        {/* VISTA MENSUAL — recibe entries desde Main, sin hook propio */}
         {view === VIEWS.MONTH && (
-          <Calendar setModal={setModal} view={view} year={year} month={month} />
+          <Calendar
+            setModal={setModal}
+            view={view}
+            year={year}
+            month={month}
+            entries={entries}
+            loading={loading}
+          />
         )}
 
         {/* VISTA POR CICLO */}
